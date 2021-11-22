@@ -1,11 +1,18 @@
 // organize original layer data to a more readable format
 
-const cf = require("./data/cf")
 const fs = require('fs');
-const img = require("./data/img")
 const path = require('path')
 const orderLayersByDepth = require("./findDepth")
 
+const cf = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "cf.json"), {
+    encoding: "utf8",
+    flag: "r"
+}))
+
+const img = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "img.json"), {
+    encoding: "utf8",
+    flag: "r"
+}))
 
 const pList = cf.pList
 const cpList = cf.cpList
