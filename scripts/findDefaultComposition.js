@@ -1,6 +1,7 @@
 const fs = require('fs');
+const path = require('path')
 
-const orderedLayers = JSON.parse(fs.readFileSync("orderedLayers.json", {
+const orderedLayers = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "public", "orderedLayers.json"), {
     encoding: "utf8",
     flag: "r"
 }))
@@ -27,4 +28,4 @@ orderedLayers.forEach(layer => {
     })
 })
 
-fs.writeFileSync('defaultCombination.json', JSON.stringify(defaultCombination, null, 2), { encoding: 'utf8', flag: 'w' })
+fs.writeFileSync(path.join(__dirname, "..", "public", "defaultCombination.json"), JSON.stringify(defaultCombination), { encoding: 'utf8', flag: 'w' })

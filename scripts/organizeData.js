@@ -3,6 +3,7 @@
 const cf = require("./data/cf")
 const fs = require('fs');
 const img = require("./data/img")
+const path = require('path')
 const orderLayersByDepth = require("./findDepth")
 
 
@@ -43,4 +44,4 @@ pList.forEach(layer => {
 
 const orderedPList = orderLayersByDepth(pList, cf.lyrList)
 
-fs.writeFileSync('orderedLayers.json', JSON.stringify(orderedPList, null, 2), { encoding: 'utf8', flag: 'w' })
+fs.writeFileSync(path.join(__dirname, "..", "public", "orderedLayers.json"), JSON.stringify(orderedPList), { encoding: 'utf8', flag: 'w' })

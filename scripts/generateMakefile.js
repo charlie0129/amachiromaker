@@ -3,6 +3,7 @@
 // to speed up downloads
 
 const fs = require('fs');
+const path = require('path')
 
 const cdnPrefix = "http://web.archive.org/web/20210130063021/https://cdn.picrew.me/app/image_maker"
 
@@ -1129,25 +1130,27 @@ const imgList =
 let mkContent = "all: "
 
 imgList.forEach(imgPath => {
-  mkContent += imgPath + " "
+  mkContent += `public/cdn.picrew.me/app/image_maker/${imgPath} `
 })
 
 cfList.forEach(imgPath => {
-  mkContent += imgPath + " "
+  mkContent += `public/cdn.picrew.me/app/image_maker/${imgPath} `
 })
 
-mkContent += "\techo \"Please copy dir 168503 to somewhre you like, preferably public/cdn.picrew.me/app/image_maker/168503\"\n\n"
-// console.log(imgList[0].substr(14, 22))
+mkContent += "public/orderedLayers.json "
+mkContent += "public/defaultComposition.json "
+
+mkContent += "\n\n"
 
 imgList.forEach(imgPath => {
   let mkTarget = ""
-  // const imageFilename = imgPath.substr(14, 22)
-  mkTarget += `${imgPath}: `
+  const localImgPath = `public/cdn.picrew.me/app/image_maker/${imgPath}`
+  mkTarget += `${localImgPath}: `
   mkTarget += "\n\t"
 
   const imageDownloadLink = `${cdnPrefix}/${imgPath}`
 
-  const downloadCmd = `curl --create-dirs -L ${imageDownloadLink} --output ${imgPath}`
+  const downloadCmd = `curl --create-dirs -L ${imageDownloadLink} --output ${localImgPath}`
 
   mkTarget += downloadCmd
 
@@ -1156,19 +1159,25 @@ imgList.forEach(imgPath => {
 
 cfList.forEach(imgPath => {
   let mkTarget = ""
-  // const imageFilename = imgPath.substr(14, 22)
-  mkTarget += `${imgPath}: `
+  const localImgPath = `public/cdn.picrew.me/app/image_maker/${imgPath}`
+  mkTarget += `${localImgPath}: `
   mkTarget += "\n\t"
 
   const imageDownloadLink = `${cdnPrefix}/${imgPath}`
 
-  const downloadCmd = `curl --create-dirs -L ${imageDownloadLink} --output ${imgPath}`
+  const downloadCmd = `curl --create-dirs -L ${imageDownloadLink} --output ${localImgPath}`
 
   mkTarget += downloadCmd
 
   mkContent += mkTarget + "\n\n"
 })
 
-fs.writeFileSync('Makefile', mkContent, { encoding: 'utf8', flag: 'w' })
+mkContent += "public/orderedLayers.json: \n"
+mkContent += "\tnode scripts/organizeData.js\n\n"
+
+mkContent += "public/defaultComposition.json: \n"
+mkContent += "\tnode scripts/findDefaultComposition.js\n\n"
+
+fs.writeFileSync(path.join(__dirname, "..", "Makefile"), mkContent, { encoding: 'utf8', flag: 'w' })
 
 console.log("Generated Makefile! Use make to start downloading (you may use something like -j8 to enable parallel downloads)")
