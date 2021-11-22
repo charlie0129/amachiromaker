@@ -14,7 +14,7 @@ pList.forEach(layer => {
     // copy colors
     layer.colors = {}
     cpList[layer.cpId].forEach(color => {
-        Object.assign(layer.colors, {[String(color.cId)]: color.cd})
+        Object.assign(layer.colors, {[color.cId]: color.cd})
     })
     // layer.colors = cpList[layer.cpId]
     
@@ -31,7 +31,7 @@ pList.forEach(layer => {
 
             if(imgLst?.[item.itmId]?.[layer.lyrs[0]]?.[cId]?.url) {
                 originals.push({
-                    cId,
+                    cId: Number(cId),
                     url: imgLst[item.itmId][layer.lyrs[0]][cId].url
                 })
             }

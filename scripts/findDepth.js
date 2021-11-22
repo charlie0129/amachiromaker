@@ -18,7 +18,7 @@
 const orderLayersByDepth = (pList, lyrList) => {
     const orderedPList = []
     
-    for (let i = pList.length; i >= 1; i--) {
+    for (let i = 1; i <= pList.length; i++) {
         const keys = Object.keys(lyrList)
         const values = Object.values(lyrList)
     
