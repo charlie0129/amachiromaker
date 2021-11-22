@@ -7,6 +7,7 @@ import services from './services';
 import consts from './consts';
 
 import 'react-tabs/style/react-tabs.css';
+import mergeImages from 'merge-images';
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
         setOrderedLayers(res)
       })
   }, [])
+
+
 
   //   export interface LayerImage {
   //     url: string;
@@ -42,9 +45,30 @@ function App() {
     setLayerComb(layerComb_);
   }
 
+  const handleDownloadImage = () => {
+    const layerList = layerComb?.filter(i => i.url)?.map(i => ({
+      src: `${consts.CDN_PREFIX}${i.url}`,
+      x: i.x,
+      y: i.y
+    })) || []
+
+    console.log(layerList)
+
+    mergeImages(layerList)
+      .then(b64 => {
+        const image = new Image()
+        image.src = b64
+
+        const win = window.open("");
+        win?.document.write(image.outerHTML)
+
+        // window.location.href = b64.replace("data:image/png;base64,", "data:application/octet-stream;base64,")
+      })
+  }
+
   return (
     <div className="App">
-      <div className="image-area" style={{ border: "dashed grey" }}>
+      <div className="image-area" style={{ border: "dashed grey" }} onClick={handleDownloadImage}>
         {
           layerComb?.map((layer, idx) => (
             layer.url && <img
@@ -76,7 +100,7 @@ function App() {
                     {
                       !!i.isRmv &&
                       <span
-                      className={layerComb?.[idx]?.itmId === 0 ? "item-image-selected" : "item-image"}
+                        className={layerComb?.[idx]?.itmId === 0 ? "item-image-selected" : "item-image"}
                         onClick={() => { handleChangeItem(idx, 0, 0, "") }}
                       >
                         None
