@@ -16,12 +16,14 @@ const orderedLayers = JSON.parse(fs.readFileSync("orderedLayers.json", {
 const defaultCombination = []
 
 orderedLayers.forEach(layer => {
+    const defaultItem = layer.items.find(i => i.itmId === layer.defItmId);
+
     defaultCombination.push({
-        url: layer.items[0].originals[0].url,
+        url: defaultItem?.originals?.[0]?.url || "",
         x: layer.x,
         y: layer.y,
-        itmId: layer.items[0].itmId,
-        cId: layer.items[0].originals[0].cId
+        itmId: layer.defItmId,
+        cId: defaultItem?.originals?.[0]?.cId || 0
     })
 })
 
