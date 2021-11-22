@@ -10,12 +10,58 @@
   color: white;
 }
 
+.left-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  text-align: center;
+}
+
 .image-area {
   min-width: 600px;
   width: 600px;
   min-height: 600px;
   height: 600px;
   cursor: pointer;
+}
+
+.reset-button {
+  background: none;
+  color: white;
+}
+
+/* CSS */
+.button-1 {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  /* position: relative; */
+  text-align: center;
+  text-decoration: none;
+  transition: 200ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  max-width: fit-content;
+  margin-top: 16px;
+}
+
+.button-1:hover,
+.button-1:focus {
+  background-color: #F082AC;
 }
 
 .config-area {
@@ -36,15 +82,28 @@
 }
 
 .item-container {
-  border: dashed red;
+  border: dashed rgb(122, 45, 45);
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* text-align: center; */
 }
 
 .item-image {
-  border: dashed blue;
+  margin: 4px 0 0 4px;
+  display: inline-block;
+  object-fit: contain;
+  width: 160px;
+  height: 160px;
+  border: dashed rgb(62, 62, 143);
   cursor: pointer;
 }
 
 .item-image-selected {
+  margin: 4px 0 0 4px;
+  display: inline-block;
+  object-fit: contain;
+  width: 160px;
+  height: 160px;
   border: solid magenta;
   cursor: default;
 }

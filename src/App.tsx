@@ -13,12 +13,20 @@ import mergeImages from 'merge-images';
 function App() {
   const [layerComb, setLayerComb] = useState<LayerImage[]>();
   const [orderedLayers, setOrderedLayers] = useState<Layer[]>();
+  const [reset, setReset] = useState<boolean>(false)
 
   useEffect(() => {
-    services.getDefaultCombination()
+    const savedComb = JSON.parse(localStorage.getItem("layerComb") || "null")
+
+    if(!savedComb) {
+      services.getDefaultCombination()
       .then(res => {
         setLayerComb(res)
       })
+    } else {
+      setLayerComb(savedComb)
+    }
+
     services.getOrderedLayers()
       .then(res => {
         setOrderedLayers(res)
@@ -42,6 +50,9 @@ function App() {
       cId,
       url,
     }
+
+    localStorage.setItem("layerComb", JSON.stringify(layerComb_))
+
     setLayerComb(layerComb_);
   }
 
@@ -51,8 +62,6 @@ function App() {
       x: i.x,
       y: i.y
     })) || []
-
-    console.log(layerList)
 
     mergeImages(layerList)
       .then(b64 => {
@@ -66,23 +75,35 @@ function App() {
       })
   }
 
+  const handleReset = () => {
+    services.getDefaultCombination()
+    .then(res => {
+      setLayerComb(res)
+      localStorage.setItem("layerComb", JSON.stringify(res))
+    })
+  }
+
   return (
     <div className="App">
-      <div className="image-area" style={{ border: "dashed grey" }} onClick={handleDownloadImage}>
-        {
-          layerComb?.map((layer, idx) => (
-            layer.url && <img
-              src={`${consts.CDN_PREFIX}${layer.url}`}
-              className="layer-image"
-              style={{
-                left: layer.x,
-                top: layer.y,
-                zIndex: 500 + idx
-              }}
-            />
-          ))
-        }
+      <div className="left-area">
+        <div className="image-area" onClick={handleDownloadImage}>
+          {
+            layerComb?.map((layer, idx) => (
+              layer.url && <img
+                src={`${consts.CDN_PREFIX}${layer.url}`}
+                className="layer-image"
+                style={{
+                  left: layer.x,
+                  top: layer.y,
+                  zIndex: 500 + idx
+                }}
+              />
+            ))
+          }
+        </div>
+        <button className="button-1" role="button" onClick={handleReset}>Reset</button>
       </div>
+
       <div className="config-area" style={{ border: "dashed blue" }}>
         <Tabs>
           <TabList>
@@ -99,12 +120,11 @@ function App() {
                   <div className="item-container">
                     {
                       !!i.isRmv &&
-                      <span
+                      <img
                         className={layerComb?.[idx]?.itmId === 0 ? "item-image-selected" : "item-image"}
                         onClick={() => { handleChangeItem(idx, 0, 0, "") }}
-                      >
-                        None
-                      </span>
+                        src="emptyset.svg"
+                      />
                     }
                     {
                       i.items.map(item => (
