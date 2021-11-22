@@ -65,6 +65,7 @@
 }
 
 .config-area {
+  margin: 16px;
   width: 100%;
   height: 100%;
 }
@@ -82,10 +83,8 @@
 }
 
 .item-container {
+  min-width: 100%;
   border: dashed rgb(122, 45, 45);
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* text-align: center; */
 }
 
 .item-image {
@@ -109,7 +108,31 @@
 }
 
 .color-container {
-  border: dashed green;
+  min-width: 100%;
+  margin-top: 4px;
+  border: dashed rgb(56, 126, 56);
+}
+
+.color-image {
+  border-radius: 50%;
+  margin: 4px 0 0 4px;
+  display: inline-block;
+  object-fit: contain;
+  width: 60px;
+  height: 60px;
+  border: 4px solid grey;
+  cursor: pointer;
+}
+
+.color-image-selected {
+  border-radius: 50%;
+  margin: 4px 0 0 4px;
+  display: inline-block;
+  object-fit: contain;
+  width: 60px;
+  height: 60px;
+  border: 4px solid white;
+  cursor: default;
 }
 
 .none-button {

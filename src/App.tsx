@@ -18,11 +18,11 @@ function App() {
   useEffect(() => {
     const savedComb = JSON.parse(localStorage.getItem("layerComb") || "null")
 
-    if(!savedComb) {
+    if (!savedComb) {
       services.getDefaultCombination()
-      .then(res => {
-        setLayerComb(res)
-      })
+        .then(res => {
+          setLayerComb(res)
+        })
     } else {
       setLayerComb(savedComb)
     }
@@ -42,13 +42,17 @@ function App() {
   //     itmId: number;
   //     cId: number;
   //   }
-  const handleChangeItem = (layerIdx: number, itmId: number, cId: number, url: string) => {
+  const handleChangeItem = (layerIdx: number,
+    itmId: number | undefined,
+    cId: number | undefined,
+    url: string | undefined
+  ) => {
     const layerComb_ = JSON.parse(JSON.stringify(layerComb)) as LayerImage[]
     layerComb_[layerIdx] = {
       ...layerComb_[layerIdx],
-      itmId,
-      cId,
-      url,
+      itmId: itmId as number,
+      cId: cId as number,
+      url: url as string,
     }
 
     localStorage.setItem("layerComb", JSON.stringify(layerComb_))
@@ -77,10 +81,10 @@ function App() {
 
   const handleReset = () => {
     services.getDefaultCombination()
-    .then(res => {
-      setLayerComb(res)
-      localStorage.setItem("layerComb", JSON.stringify(res))
-    })
+      .then(res => {
+        setLayerComb(res)
+        localStorage.setItem("layerComb", JSON.stringify(res))
+      })
   }
 
   return (
@@ -104,7 +108,7 @@ function App() {
         <button className="button-1" role="button" onClick={handleReset}>Reset</button>
       </div>
 
-      <div className="config-area" style={{ border: "dashed blue" }}>
+      <div className="config-area">
         <Tabs>
           <TabList>
             {
@@ -131,11 +135,28 @@ function App() {
                         <img
                           className={layerComb?.[idx]?.itmId === item.itmId ? "item-image-selected" : "item-image"}
                           src={`${consts.CDN_PREFIX}${item.thumbUrl}`}
-                          onClick={() => { handleChangeItem(idx, item.itmId, 0, item.originals[0].url) }}
+                          onClick={() => {
+                            const sameColorItem = item.originals.find(i => i.cId === layerComb?.[idx]?.cId)
+                            handleChangeItem(idx, item.itmId, sameColorItem?.cId || item.originals[0].cId, sameColorItem?.url || item.originals[0].url)
+                          }}
                         />
                       ))
                     }
                   </div>
+                  {
+                    !!(Object.keys(i.colors).length > 1 && layerComb?.[idx]?.itmId) && <div className="color-container">
+                      {
+                        i.items.find(j => j.itmId === layerComb?.[idx]?.itmId)?.originals.map(orig => (
+                          <div
+                            className={layerComb?.[idx]?.cId === orig.cId ? "color-image-selected" : "color-image"}
+                            style={{ background: i.colors[orig.cId] }}
+                            onClick={() => { handleChangeItem(idx, layerComb?.[idx]?.itmId as number, orig.cId, orig.url) }}
+                          />
+                        ))
+                      }
+                    </div>
+                  }
+
 
                 </div>
 
