@@ -26,3 +26,6 @@ yarn-error.log*
 public/cdn.picrew.me
 
 scripts/orderedLayers.json
+public/orderedLayers.json
+scripts/defaultCombination.json
+public/defaultCombination.json
