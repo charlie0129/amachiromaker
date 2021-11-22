@@ -113,7 +113,7 @@ function App() {
           <TabList>
             {
               orderedLayers?.map(i => (
-                <Tab>{i.pNm}</Tab>
+                <Tab><img className="tab-image" src={`${consts.CDN_PREFIX}${i.thumbUrl}`}/></Tab>
               ))
             }
           </TabList>

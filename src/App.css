@@ -83,11 +83,13 @@
 }
 
 .item-container {
+  border-radius: 16px;
   min-width: 100%;
   border: dashed rgb(122, 45, 45);
 }
 
 .item-image {
+  border-radius: 16px;
   margin: 4px 0 0 4px;
   display: inline-block;
   object-fit: contain;
@@ -98,6 +100,7 @@
 }
 
 .item-image-selected {
+  border-radius: 16px;
   margin: 4px 0 0 4px;
   display: inline-block;
   object-fit: contain;
@@ -108,6 +111,7 @@
 }
 
 .color-container {
+  border-radius: 16px;
   min-width: 100%;
   margin-top: 4px;
   border: dashed rgb(56, 126, 56);
@@ -115,7 +119,7 @@
 
 .color-image {
   border-radius: 50%;
-  margin: 4px 0 0 4px;
+  margin: 8px 0 0 8px;
   display: inline-block;
   object-fit: contain;
   width: 60px;
@@ -126,7 +130,7 @@
 
 .color-image-selected {
   border-radius: 50%;
-  margin: 4px 0 0 4px;
+  margin: 8px 0 0 8px;
   display: inline-block;
   object-fit: contain;
   width: 60px;
@@ -138,4 +142,9 @@
 .none-button {
   min-width: 160px;
   min-height: auto;
+}
+
+.tab-image {
+  width: 60px;
+  border-radius: 8px;
 }
