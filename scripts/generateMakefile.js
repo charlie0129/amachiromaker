@@ -28,7 +28,7 @@ cfList.forEach(imgPath => {
 })
 
 mkContent += "public/orderedLayers.json "
-mkContent += "public/defaultComposition.json "
+mkContent += "public/defaultCombination.json "
 
 mkContent += "\n\n"
 
@@ -65,8 +65,8 @@ cfList.forEach(imgPath => {
 mkContent += "public/orderedLayers.json: \n"
 mkContent += "\tnode scripts/organizeData.js\n\n"
 
-mkContent += "public/defaultComposition.json: \n"
-mkContent += "\tnode scripts/findDefaultComposition.js\n\n"
+mkContent += "public/defaultCombination.json: \n"
+mkContent += "\tnode scripts/findDefaultCombination.js\n\n"
 
 fs.writeFileSync(path.join(__dirname, "..", "Makefile"), mkContent, { encoding: 'utf8', flag: 'w' })
 
