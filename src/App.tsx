@@ -7,12 +7,14 @@ import consts from './consts';
 
 import 'react-tabs/style/react-tabs.css';
 import mergeImages from 'merge-images';
+import useWindowDimensions from './hooks';
 
 
 function App() {
   const [layerComb, setLayerComb] = useState<LayerImage[]>();
   const [orderedLayers, setOrderedLayers] = useState<Layer[]>();
   const [outputImage, setOutputImage] = useState<string>();
+  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     const savedComb = JSON.parse(localStorage.getItem("layerComb") || "null")
@@ -50,15 +52,15 @@ function App() {
     setLayerComb(layerComb_);
   }
 
-  const mergeLayers = useCallback(() => {
-    const layerList = layerComb?.filter(i => i.url)?.map(i => ({
-      src: `${consts.CDN_PREFIX}${i.url}`,
-      x: i.x,
-      y: i.y
-    })) || []
+  // const mergeLayers = useCallback(() => {
+  //   const layerList = layerComb?.filter(i => i.url)?.map(i => ({
+  //     src: `${consts.CDN_PREFIX}${i.url}`,
+  //     x: i.x,
+  //     y: i.y
+  //   })) || []
 
-    return mergeImages(layerList)
-  }, [layerComb])
+  //   return mergeImages(layerList)
+  // }, [layerComb])
 
   const handleReset = () => {
     services.getDefaultCombination()
@@ -69,17 +71,29 @@ function App() {
   }
 
   useEffect(() => {
-    mergeLayers()
+    const layerList = layerComb?.filter(i => i.url)?.map(i => ({
+      src: `${consts.CDN_PREFIX}${i.url}`,
+      x: i.x,
+      y: i.y
+    })) || []
+
+    mergeImages(layerList)
       .then(b64 => {
         setOutputImage(b64)
       })
   }, [layerComb])
 
   return (
-    <div className="App">
+    <div className="App" style={{ flexDirection: width > height ? "row" : "column" }}>
       <div className="left-area">
         <a className="image-area" href={outputImage} download="output.png">
-          <img src={outputImage} />
+          {
+            outputImage?.startsWith("data:image/png;base64,") ? (
+              <img className="layer-image" src={outputImage} />
+            ) : (
+              <div className="loading-text-container">loading...</div>
+            )
+          }
         </a>
         <button className="button-1" role="button" onClick={handleReset}>Reset</button>
       </div>
@@ -132,11 +146,7 @@ function App() {
                       }
                     </div>
                   }
-
-
                 </div>
-
-
               </TabPanel>
             ))
           }

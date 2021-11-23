@@ -2,8 +2,9 @@
   /* text-align: center; */
   background-color: #282c34;
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   /* align-items: center; */
   /* justify-content: center; */
   font-size: calc(10px + 2vmin);
@@ -19,11 +20,9 @@
 }
 
 .image-area {
-  min-width: 600px;
-  width: 600px;
-  min-height: 600px;
-  height: 600px;
   cursor: pointer;
+  text-decoration: none;
+  margin: 12px 0 0 12px;
 }
 
 .reset-button {
@@ -71,7 +70,29 @@
 }
 
 .layer-image {
-  position: absolute;
+  min-width: min(600px, max(50vw, min(50vh, 80vw)));
+  width: min(600px, max(50vw, min(50vh, 80vw)));
+  min-height: min(600px, max(50vw, min(50vh, 80vw)));
+  height: min(600px, max(50vw, min(50vh, 80vw)));
+  border-radius: 16px;
+  border: solid #555;
+}
+
+.loading-text-container {
+  min-width: min(600px, max(50vw, min(50vh, 80vw)));
+  width: min(600px, max(50vw, min(50vh, 80vw)));
+  min-height: min(600px, max(50vw, min(50vh, 80vw)));
+  height: min(600px, max(50vw, min(50vh, 80vw)));
+  border-radius: 16px;
+  border: solid #555;
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+  min-height: 600px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: grey;
 }
 
 .tab-content {
@@ -89,7 +110,7 @@
 }
 
 .item-image {
-  border-radius: 16px;
+  border-radius: 12px;
   margin: 4px 0 0 4px;
   display: inline-block;
   object-fit: contain;
@@ -102,11 +123,11 @@
 
 .item-image:hover,
 .item-image:focus {
-  border: dashed #F082AC;
+  border: solid #F082AC;
 }
 
 .item-image-selected {
-  border-radius: 16px;
+  border-radius: 12px;
   margin: 4px 0 0 4px;
   display: inline-block;
   object-fit: contain;
