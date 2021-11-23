@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import logo from './logo.svg';
 import './App.css';
 import { Layer, LayerImage } from './types';
 import services from './services';
@@ -13,7 +12,7 @@ import mergeImages from 'merge-images';
 function App() {
   const [layerComb, setLayerComb] = useState<LayerImage[]>();
   const [orderedLayers, setOrderedLayers] = useState<Layer[]>();
-  const [reset, setReset] = useState<boolean>(false)
+  const [outputImage, setOutputImage] = useState<string>();
 
   useEffect(() => {
     const savedComb = JSON.parse(localStorage.getItem("layerComb") || "null")
@@ -33,15 +32,6 @@ function App() {
       })
   }, [])
 
-
-
-  //   export interface LayerImage {
-  //     url: string;
-  //     x: number;
-  //     y: number;
-  //     itmId: number;
-  //     cId: number;
-  //   }
   const handleChangeItem = (layerIdx: number,
     itmId: number | undefined,
     cId: number | undefined,
@@ -60,24 +50,15 @@ function App() {
     setLayerComb(layerComb_);
   }
 
-  const handleDownloadImage = () => {
+  const mergeLayers = useCallback(() => {
     const layerList = layerComb?.filter(i => i.url)?.map(i => ({
       src: `${consts.CDN_PREFIX}${i.url}`,
       x: i.x,
       y: i.y
     })) || []
 
-    mergeImages(layerList)
-      .then(b64 => {
-        const image = new Image()
-        image.src = b64
-
-        const win = window.open("");
-        win?.document.write(image.outerHTML)
-
-        // window.location.href = b64.replace("data:image/png;base64,", "data:application/octet-stream;base64,")
-      })
-  }
+    return mergeImages(layerList)
+  }, [layerComb])
 
   const handleReset = () => {
     services.getDefaultCombination()
@@ -87,24 +68,19 @@ function App() {
       })
   }
 
+  useEffect(() => {
+    mergeLayers()
+      .then(b64 => {
+        setOutputImage(b64)
+      })
+  }, [layerComb])
+
   return (
     <div className="App">
       <div className="left-area">
-        <div className="image-area" onClick={handleDownloadImage}>
-          {
-            layerComb?.map((layer, idx) => (
-              layer.url && <img
-                src={`${consts.CDN_PREFIX}${layer.url}`}
-                className="layer-image"
-                style={{
-                  left: layer.x,
-                  top: layer.y,
-                  zIndex: 500 + idx
-                }}
-              />
-            ))
-          }
-        </div>
+        <a className="image-area" href={outputImage} download="output.png">
+          <img src={outputImage} />
+        </a>
         <button className="button-1" role="button" onClick={handleReset}>Reset</button>
       </div>
 
@@ -113,7 +89,7 @@ function App() {
           <TabList>
             {
               orderedLayers?.map(i => (
-                <Tab><img className="tab-image" src={`${consts.CDN_PREFIX}${i.thumbUrl}`}/></Tab>
+                <Tab><img className="tab-image" src={`${consts.CDN_PREFIX}${i.thumbUrl}`} /></Tab>
               ))
             }
           </TabList>
@@ -164,10 +140,6 @@ function App() {
               </TabPanel>
             ))
           }
-
-          <TabPanel>
-            <h2>Any content 2</h2>
-          </TabPanel>
         </Tabs>
       </div>
     </div>
