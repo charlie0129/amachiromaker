@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import './App.css';
+import mergeImages from 'merge-images';
+import useWindowDimensions from './hooks';
 import { Layer, LayerImage } from './types';
 import services from './services';
 import consts from './consts';
 
+import './App.css';
 import 'react-tabs/style/react-tabs.css';
-import mergeImages from 'merge-images';
-import useWindowDimensions from './hooks';
-
 
 function App() {
   const [layerComb, setLayerComb] = useState<LayerImage[]>();
@@ -51,16 +50,6 @@ function App() {
 
     setLayerComb(layerComb_);
   }
-
-  // const mergeLayers = useCallback(() => {
-  //   const layerList = layerComb?.filter(i => i.url)?.map(i => ({
-  //     src: `${consts.CDN_PREFIX}${i.url}`,
-  //     x: i.x,
-  //     y: i.y
-  //   })) || []
-
-  //   return mergeImages(layerList)
-  // }, [layerComb])
 
   const handleReset = () => {
     services.getDefaultCombination()
