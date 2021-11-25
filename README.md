@@ -4,7 +4,7 @@ I created this website since the [original one](https://picrew.me/image_maker/16
 
 This website is not a one-to-one clone of the original one, rather it is rewritten from scratch using basic React (very lightweight, no UI library used).
 
-**Note:** The original artwork (layers in the image) is <b><u>not</u></b> (and <b><u>will not be</u></b>) provided due to copyright reasons. You have to download them yourself (from [Wayback Machine](http://web.archive.org/) if the original website is down). I am not responsible if you violate the license.
+**Note:** The original artwork (layers in the image) is ***not*** (and ***will not be***) provided due to copyright reasons. You have to download them yourself (from [Wayback Machine](http://web.archive.org/) if the original website is down). I am not responsible if you violate the license.
 
 ## How to Build
 
@@ -26,9 +26,10 @@ Before you begin, make sure `node` (>= 14) and `yarn` are installed.
 <p align="center">
   <img src="README.assets/image-20211125184958925.png" />
   <img src="README.assets/ScreenRecording2021-11-25.gif" />
-  <p align="center" >Any of the artwork above will <b><u>not</u></b> be provided in this repository.</p>
+  <p align="center" >Any of the artwork above will <b><i>not</i></b> be provided in this repository.</p>
   <p align="center" >Copyright of the artwork belong to the original author.</p>
 </p>
+
 
 
 ## Description of the Scripts
