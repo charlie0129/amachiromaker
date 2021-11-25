@@ -1,4 +1,3 @@
-import axios from "axios"
 import http from "./http"
 import { Layer, LayerImage } from "./types"
 

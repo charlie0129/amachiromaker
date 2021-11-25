@@ -1,5 +1,4 @@
 import axios from 'axios';
-import consts from './consts';
 
 const service = axios.create({
   baseURL: "",
