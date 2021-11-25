@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# amachiromaker-clone
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I created this website since the [original one](https://picrew.me/image_maker/168503) was not accessible (as of November 2021; was taken down by its author 甘城なつき). Original website: [amachiromaker｜Picrew](https://picrew.me/image_maker/168503).
 
-## Available Scripts
+This website is not a one-to-one clone of the original one, rather it is rewritten from scratch using basic React (very lightweight, no UI library used).
 
-In the project directory, you can run:
+**Note:** The original artwork (layers in the image) is **not** (and **will not be**) provided due to copyright reasons. You have to download them yourself (from [Wayback Machine](http://web.archive.org/) if the original website is down). I am not responsible if you violate the license.
 
-### `yarn start`
+## How to Build
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Before you begin, make sure `node` (>= 14) and `yarn` are installed.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Run `yarn` to install dependencies.
+- Run `yarn build-static` to download original artworks from [Wayback Machine](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503)
+  - By doing this, you agree that you will follow the license the license on the [original webpage (Wayback Machine copy)](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
+  - Optionally, you may use `yarn build-static -jx` to enable parallel downloads, where `x` = number of threads.
+- Run `yarn start` to start development server. Your browser should open shortly.
+- Or, run `yarn build ` to build the website. Static files will be located under `build/`. You can use a static file server to serve the files. Quick examples:
+  - `python3 -m http.server -d build 3000` (`python3` should be installed)
+  - `serve build ` (`serve` should be installed by `yarn global add serve`)
 
-### `yarn test`
+> Dockerfile/docker-compose will be added later.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Screenshots
 
-### `yarn build`
+![image-20211125184958925](README.assets/image-20211125184958925.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![ScreenRecording2021-11-25](README.assets/ScreenRecording2021-11-25.gif)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<p style="text-align: center">Any of the artwork above will <b>not</b> be provided in this repository.</p>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<p style="text-align: center">Copyright of the artwork belong to the original author.</p>
 
-### `yarn eject`
+## Description of the Scripts
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `data/` JSONs from the original website, containing layer info. Scripts below will use them.
+- `scripts/findDefaultCombination.js` find out the layer combination to compose the default picture.
+- `scripts/findDepth.js` order the layers by depth.
+- `scripts/generateMakefile.js` generate Makefile to download all the layers from Wayback Machine.
+- `scripts/organizeData.js` reconsturct the original data to make it easier to use (mainly by combining image `src`s of different colors into layer objects).
