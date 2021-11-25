@@ -26,9 +26,10 @@ Before you begin, make sure `node` (>= 14) and `yarn` are installed.
 <p align="center">
   <img src="README.assets/image-20211125184958925.png" />
   <img src="README.assets/ScreenRecording2021-11-25.gif" />
-  <p align="center" >Any of the artwork above will <b><i>not</i></b> be provided in this repository.</p>
-  <p align="center" >Copyright of the artwork belong to the original author.</p>
+  <p align="center">Any of the artwork above will <b><i>not</i></b> be provided in this repository.</p>
+  <p align="center">Copyright of the artwork belongs to the original author.</p>
 </p>
+
 
 
 
@@ -39,3 +40,5 @@ Before you begin, make sure `node` (>= 14) and `yarn` are installed.
 - `scripts/findDepth.js` order the layers by depth.
 - `scripts/generateMakefile.js` generate Makefile to download all the layers from Wayback Machine.
 - `scripts/organizeData.js` reconsturct the original data to make it easier to use (mainly by combining image `src`s of different colors into layer objects).
+
+> If you find this project interesting, stars are apprecieated.
