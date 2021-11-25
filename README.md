@@ -23,9 +23,13 @@ Before you begin, make sure `node` (>= 14) and `yarn` are installed.
 
 ## Screenshots
 
-![image-20211125184958925](README.assets/image-20211125184958925.png)
+<p align="center">
+  <img src="README.assets/image-20211125184958925.png" />
+</p>
 
-![ScreenRecording2021-11-25](README.assets/ScreenRecording2021-11-25.gif)
+<p align="center">
+  <img src="README.assets/ScreenRecording2021-11-25.gif" />
+</p>
 
 <p style="text-align: center">Any of the artwork above will <b>not</b> be provided in this repository.</p>
 
