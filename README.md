@@ -12,7 +12,7 @@ Before you begin, make sure `node` (>= 14) and `yarn` are installed.
 
 - Run `yarn` to install dependencies.
 - Run `yarn build-static` to download original artworks from [Wayback Machine](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503)
-  - By doing this, you agree that you will follow the license the license on the [original webpage (Wayback Machine copy)](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
+  - By doing this, you agree that you will follow the license on the [original webpage (Wayback Machine copy)](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
   - Optionally, you may use `yarn build-static -jx` to enable parallel downloads, where `x` = number of threads.
 - Run `yarn start` to start development server. Your browser should open shortly.
 - Or, run `yarn build ` to build the website. Static files will be located under `build/`. You can use a static file server to serve the files. Quick examples:
