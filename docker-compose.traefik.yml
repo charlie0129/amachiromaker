@@ -2,7 +2,7 @@ version: "3.6"
 services:
   amachiromaker:
     build: .
-    image: charlie0129/amachiromaker-clone
+    image: charlie0129/amachiromaker
     container_name: amachiromaker
     restart: unless-stopped
     networks:
@@ -12,8 +12,6 @@ services:
       - "traefik.http.routers.amachiromaker.rule=Host(`${WEBSITE_URL}`)"
       - "traefik.http.routers.amachiromaker.entrypoints=web"
       - "traefik.http.services.amachiromaker.loadbalancer.server.port=80"
-      - "traefik.http.routers.amachiromaker.middlewares=amachiromaker-compress"
-      - "traefik.http.middlewares.amachiromaker-compress.compress=true"
     environment:
       - "NODE_ENV=production"
 
