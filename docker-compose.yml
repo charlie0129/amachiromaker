@@ -1,0 +1,13 @@
+version: "3.6"
+services:
+  amachiromaker:
+    build: .
+    image: charlie0129/amachiromaker-clone
+    container_name: amachiromaker
+    restart: unless-stopped
+    ports:
+      - "${PORT}:80"
+    environment:
+      - "NODE_ENV=production"
+    expose:
+      - "80"
