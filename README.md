@@ -15,11 +15,34 @@ Before you begin, make sure `node` (>= 14) and `yarn` are installed.
   - By doing this, you agree that you will follow the license on the [original webpage (Wayback Machine copy)](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
   - Optionally, you may use `yarn build-static -jx` to enable parallel downloads, where `x` = number of threads.
 - Run `yarn start` to start development server. Your browser should open shortly.
-- Or, run `yarn build ` to build the website. Static files will be located under `build/`. You can use a static file server to serve the files. Quick examples:
-  - `python3 -m http.server -d build 3000` (`python3` should be installed)
-  - `serve build ` (`serve` should be installed by `yarn global add serve`)
+- Or, run `yarn build ` to build the website. Static files will be located under `build/`.
 
-> Dockerfile/docker-compose will be added later.
+## How to Deploy
+
+You have two options to deploy this application. Choose the one you like.
+
+### Containerized
+
+1. Make sure `docker` and `docker-compose` are installed and updated.
+2. Copy `.env` as `.env.local`.
+3. Depending on whether you want to have `traefik` as a reverse proxy, you have two options:
+    1. No `traefik`: `./runner.sh start prod -v -d ` (listens on `PORT` in `.env.local`, defaults to `8081`)
+    2. With `traefik`: `./runner.sh start prod-traefik -v -d` (remember to check the `traefik` configurations in `docker-compose.traefik.yml` and `WEBSITE_URL` in `.env.local`)
+
+> If you wonder what the heck is `./runner.sh`, you can find it [here (charlie0129/server-app-runner)](https://github.com/charlie0129/server-app-runner) .
+
+### Other
+
+If you do not have Docker, try using a static file server to serve the `build/` directory.
+
+Quick examples:
+
+- `python3 -m http.server -d build 3000` (`python3` should be installed)
+- `serve build ` (`serve` should be installed by `yarn global add serve`)
+
+Perferably:
+
+- `nginx` (example configuration is in [`nginx.conf`](https://github.com/charlie0129/amachiromaker/blob/master/nginx.conf))
 
 ## Screenshots
 
@@ -39,6 +62,6 @@ Before you begin, make sure `node` (>= 14) and `yarn` are installed.
 - `scripts/findDefaultCombination.js` find out the layer combination to compose the default picture.
 - `scripts/findDepth.js` order the layers by depth.
 - `scripts/generateMakefile.js` generate Makefile to download all the layers from Wayback Machine.
-- `scripts/organizeData.js` reconsturct the original data to make it easier to use (mainly by combining image `src`s of different colors into layer objects).
+- `scripts/organizeData.js` reconstruct the original data to make it easier to use (mainly by combining image `src`s of different colors into layer objects).
 
 > If you find this project interesting, stars are apprecieated.
