@@ -39,6 +39,7 @@ function App() {
     url: string | undefined
   ) => {
     const layerComb_ = JSON.parse(JSON.stringify(layerComb)) as LayerImage[]
+
     layerComb_[layerIdx] = {
       ...layerComb_[layerIdx],
       itmId: itmId as number,
@@ -78,13 +79,13 @@ function App() {
         <a className="image-area" href={outputImage} download="output.png">
           {
             outputImage?.startsWith("data:image/png;base64,") ? (
-              <img className="layer-image" src={outputImage} />
+              <img className="layer-image" src={outputImage} title="Output Image (click to download)" alt="" />
             ) : (
               <div className="loading-text-container">loading...</div>
             )
           }
         </a>
-        <button className="button-1" role="button" onClick={handleReset}>Reset</button>
+        <button className="button-1" onClick={handleReset}>Reset</button>
       </div>
 
       <div className="config-area">
@@ -92,7 +93,7 @@ function App() {
           <TabList>
             {
               orderedLayers?.map(i => (
-                <Tab><img className="tab-image" src={`${consts.CDN_PREFIX}${i.thumbUrl}`} /></Tab>
+                <Tab><img className="tab-image" src={`${consts.CDN_PREFIX}${i.thumbUrl}`} alt="" /></Tab>
               ))
             }
           </TabList>
@@ -107,6 +108,7 @@ function App() {
                         className={layerComb?.[idx]?.itmId === 0 ? "item-image-selected" : "item-image"}
                         onClick={() => { handleChangeItem(idx, 0, 0, "") }}
                         src="emptyset.svg"
+                        alt=""
                       />
                     }
                     {
@@ -118,6 +120,7 @@ function App() {
                             const sameColorItem = item.originals.find(i => i.cId === layerComb?.[idx]?.cId)
                             handleChangeItem(idx, item.itmId, sameColorItem?.cId || item.originals[0].cId, sameColorItem?.url || item.originals[0].url)
                           }}
+                          alt=""
                         />
                       ))
                     }
