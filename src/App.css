@@ -12,6 +12,8 @@
 }
 
 .left-area {
+  margin-left: 8px;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,14 +27,13 @@
   margin: 12px 0 0 12px;
 }
 
-.reset-button {
-  background: none;
-  color: white;
+.button-group {
+  display: flex;
+  flex-direction: row;
 }
 
-/* CSS */
 .button-1 {
-  background-color: #EA4C89;
+  background-color: #A1586D;
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -60,7 +61,38 @@
 
 .button-1:hover,
 .button-1:focus {
-  background-color: #F082AC;
+  background-color: #FCA4CE;
+}
+
+.button-2 {
+  margin-left: 16px;
+  background-color: #FC7C73;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  outline: none;
+  padding: 10px 16px;
+  /* position: relative; */
+  text-align: center;
+  text-decoration: none;
+  transition: 200ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 16px;
+}
+
+.button-2:hover,
+.button-2:focus {
+  background-color: #FEC8A9;
 }
 
 .config-area {

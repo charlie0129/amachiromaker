@@ -4,6 +4,7 @@ export interface LayerImage {
   y: number;
   itmId: number;
   cId: number;
+  name?: string;
 }
 
 export interface Layer {

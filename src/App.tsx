@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import mergeImages from 'merge-images';
+import { Psd } from 'ag-psd';
+import { saveAs } from 'file-saver';
 import useWindowDimensions from './hooks';
 import { Layer, LayerImage } from './types';
 import services from './services';
@@ -13,6 +15,7 @@ function App() {
   const [layerComb, setLayerComb] = useState<LayerImage[]>();
   const [orderedLayers, setOrderedLayers] = useState<Layer[]>();
   const [outputImage, setOutputImage] = useState<string>();
+  const [psdContent, setPsdContent] = useState<Blob>()
   const { width, height } = useWindowDimensions();
 
   useEffect(() => {
@@ -73,19 +76,72 @@ function App() {
       })
   }, [layerComb])
 
+  const handleDownloadPsd = async () => {
+    const agPsd = await import('ag-psd');
+
+    const psdLayers = await Promise.all(
+      (layerComb || []).map((i, idx) => ({
+        ...i,
+        name: orderedLayers?.[idx].pNm
+      })).filter(i => i.url).map(async (layer, idx) => {
+        const drawImg = (ctx: any, url: string) => {
+
+          return new Promise(resolve => {
+            const image = new Image();
+            image.onload = function () {
+              ctx.drawImage(image, 0, 0);
+              resolve('resolved');
+            };
+            image.src = `${consts.CDN_PREFIX}${url}`;
+          });
+        }
+
+        const canvas2 = new OffscreenCanvas(600, 600);
+        await drawImg(canvas2.getContext('2d'), layer.url)
+
+        return {
+          top: layer.y,
+          left: layer.x,
+          blendMode: 'normal',
+          opacity: 1,
+          name: layer.name,
+          canvas: canvas2
+        }
+      }))
+
+    const psdData: Psd = {
+      width: 600,
+      height: 600,
+      colorMode: 3,
+      channels: 3,
+      bitsPerChannel: 8,
+      children: psdLayers as any
+    }
+
+    console.log('start write')
+    const data = agPsd.writePsd(psdData);
+    const blob = new Blob([data]);
+    saveAs(blob, 'output.psd')
+  }
+
   return (
     <div className="App" style={{ flexDirection: width > height ? "row" : "column" }}>
       <div className="left-area">
-        <a className="image-area" href={outputImage} download="output.png">
-          {
-            outputImage?.startsWith("data:image/png;base64,") ? (
-              <img className="layer-image" src={outputImage} title="Output Image (click to download)" alt="" />
-            ) : (
-              <div className="loading-text-container">loading...</div>
-            )
-          }
-        </a>
-        <button className="button-1" onClick={handleReset}>Reset</button>
+        {
+          outputImage?.startsWith("data:image/png;base64,") ? (
+            <img className="layer-image" src={outputImage} title="Output Image (click to download)" alt="" />
+          ) : (
+            <div className="loading-text-container">loading...</div>
+          )
+        }
+        {
+          outputImage?.startsWith("data:image/png;base64,") &&
+          <div className="button-group">
+            <button className="button-1" onClick={handleReset}>Reset</button>
+            <button className="button-2" onClick={() => { saveAs(outputImage || "", 'output.png') }}>Save PNG</button>
+            <button className="button-2" onClick={handleDownloadPsd}>Save PSD</button>
+          </div>
+        }
       </div>
 
       <div className="config-area">

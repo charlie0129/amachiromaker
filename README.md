@@ -52,9 +52,8 @@ Perferably:
   <p align="center">Any of the artwork above will <b><i>not</i></b> be provided in this repository.</p>
   <p align="center">Copyright of the artwork belongs to the original author.</p>
 </p>
-
-
-
+- Choose any combinations you want, with live preview
+- Download as PNG or layered PSD for advanced users
 
 ## Description of the Scripts
 
