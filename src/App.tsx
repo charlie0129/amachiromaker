@@ -129,7 +129,7 @@ function App() {
       <div className="left-area">
         {
           outputImage?.startsWith("data:image/png;base64,") ? (
-            <img className="layer-image" src={outputImage} title="Output Image (click to download)" alt="" />
+            <img className="layer-image" src={outputImage} title="Output Image" alt="" />
           ) : (
             <div className="loading-text-container">loading...</div>
           )
