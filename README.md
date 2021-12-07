@@ -8,7 +8,7 @@ This website is not a one-to-one clone of the original one, rather it is rewritt
 
 ## How to Build
 
-Before you begin, make sure `node` (>= 14) and `yarn` are installed.
+Before you begin, make sure `node` (>= 14), `yarn`, `GNU Make`, and `curl` are installed. Also, it is recommended to use unix-like operating systems due to some command line usages (try WSL if you run into problems under Windows).
 
 - Run `yarn` to install dependencies.
 - Run `yarn build-static` to download original artworks from [Wayback Machine](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503)
