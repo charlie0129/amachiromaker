@@ -39,33 +39,33 @@ function App() {
       })
   }, [])
 
-  const getOutputImageDimension = () => {
-    // width and height are identical, so we only need width
-    const maxWidth = 600
-    const minWidth = 300
-    const calculatedWidth = width > height ? (width * 0.3) : (width * 0.5)
-    const finalWidth = Math.min(maxWidth, calculatedWidth);
-    return finalWidth < minWidth ? minWidth : finalWidth;
-  }
-  const getItemImageDimension = () => {
-    // width and height are identical, so we only need width
-    const maxWidth = 160
-    const calculatedWidth = width > height ? (width * 0.1) : (width * 0.167)
-    const finalWidth = Math.min(maxWidth, calculatedWidth);
-    return finalWidth
-  }
-  const getColorImageDimension = () => {
-    // width and height are identical, so we only need width
-    const maxWidth = 60
-    const calculatedWidth = width > height ? (width * 0.05) : (width * 0.083)
-    const finalWidth = Math.min(maxWidth, calculatedWidth);
-    return finalWidth
-  }
-  const getTabImageDimension = () => {
-    return getColorImageDimension()
-  }
-
   useEffect(() => {
+    const getOutputImageDimension = () => {
+      // width and height are identical, so we only need width
+      const maxWidth = 600
+      const minWidth = 300
+      const calculatedWidth = width > height ? (width * 0.3) : (width * 0.5)
+      const finalWidth = Math.min(maxWidth, calculatedWidth);
+      return finalWidth < minWidth ? minWidth : finalWidth;
+    }
+    const getItemImageDimension = () => {
+      // width and height are identical, so we only need width
+      const maxWidth = 160
+      const calculatedWidth = width > height ? (width * 0.1) : (width * 0.167)
+      const finalWidth = Math.min(maxWidth, calculatedWidth);
+      return finalWidth
+    }
+    const getColorImageDimension = () => {
+      // width and height are identical, so we only need width
+      const maxWidth = 60
+      const calculatedWidth = width > height ? (width * 0.05) : (width * 0.083)
+      const finalWidth = Math.min(maxWidth, calculatedWidth);
+      return finalWidth
+    }
+    const getTabImageDimension = () => {
+      return getColorImageDimension()
+    }
+    
     setOutputImageDimension(getOutputImageDimension());
     setItemImageDimension(getItemImageDimension());
     setColorImageDimension(getColorImageDimension());
@@ -77,7 +77,7 @@ function App() {
     cId: number | undefined,
     url: string | undefined
   ) => {
-    const layerComb_ = JSON.parse(JSON.stringify(layerComb)) as LayerImage[]
+    const layerComb_ = [...(layerComb || [])]
 
     layerComb_[layerIdx] = {
       ...layerComb_[layerIdx],
@@ -186,7 +186,7 @@ function App() {
         {
           outputImage?.startsWith("data:image/png;base64,") ? (
             <>
-              <img className="layer-image" width={outputImageDimension} src={outputImage} title="Output Image" alt="Output Image" />
+              <img className="layer-image" width={outputImageDimension} src={outputImage} title="Output Image" alt="Output" />
               <div className="button-group">
                 <button className="button-1" onClick={handleReset}>Reset</button>
                 <button className="button-2" onClick={() => { saveAs(outputImage || "", `amachiromaker-output-${Date.now()}.png`) }}>Save PNG</button>
