@@ -15,7 +15,10 @@ function App() {
   const [layerComb, setLayerComb] = useState<LayerImage[]>();
   const [orderedLayers, setOrderedLayers] = useState<Layer[]>();
   const [outputImage, setOutputImage] = useState<string>();
-  const [psdContent, setPsdContent] = useState<Blob>()
+  const [outputImageDimension, setOutputImageDimension] = useState<number>();
+  const [itemImageDimension, setItemImageDimension] = useState<number>();
+  const [colorImageDimension, setColorImageDimension] = useState<number>();
+  const [tabImageDimension, setTabImageDimension] = useState<number>();
   const { width, height } = useWindowDimensions();
 
   useEffect(() => {
@@ -35,6 +38,38 @@ function App() {
         setOrderedLayers(res)
       })
   }, [])
+
+  const getOutputImageDimension = () => {
+    // width and height are identical, so we only need width
+    const maxWidth = 600
+    const calculatedWidth = width * 0.3
+    const finalWidth = Math.min(maxWidth, calculatedWidth);
+    return finalWidth
+  }
+  const getItemImageDimension = () => {
+    // width and height are identical, so we only need width
+    const maxWidth = 160
+    const calculatedWidth = width * 0.1
+    const finalWidth = Math.min(maxWidth, calculatedWidth);
+    return finalWidth
+  }
+  const getColorImageDimension = () => {
+    // width and height are identical, so we only need width
+    const maxWidth = 60
+    const calculatedWidth = width * 0.05
+    const finalWidth = Math.min(maxWidth, calculatedWidth);
+    return finalWidth
+  }
+  const getTabImageDimension = () => {
+    return getColorImageDimension()
+  }
+
+  useEffect(() => {
+    setOutputImageDimension(getOutputImageDimension());
+    setItemImageDimension(getItemImageDimension());
+    setColorImageDimension(getColorImageDimension());
+    setTabImageDimension(getTabImageDimension());
+  }, [width, height])
 
   const handleChangeItem = (layerIdx: number,
     itmId: number | undefined,
@@ -129,9 +164,9 @@ function App() {
       <div className="left-area">
         {
           outputImage?.startsWith("data:image/png;base64,") ? (
-            <img className="layer-image" src={outputImage} title="Output Image" alt="" />
+            <img className="layer-image" width={outputImageDimension} src={outputImage} title="Output Image" alt="Output Image" />
           ) : (
-            <div className="loading-text-container">loading...</div>
+            <div className="loading-text-container" style={{width: outputImageDimension, height: outputImageDimension}}>loading...</div>
           )
         }
         {
@@ -149,7 +184,7 @@ function App() {
           <TabList>
             {
               orderedLayers?.map(i => (
-                <Tab><img className="tab-image" src={`${consts.CDN_PREFIX}${i.thumbUrl}`} alt="" /></Tab>
+                <Tab><img className="tab-image" width={tabImageDimension} src={`${consts.CDN_PREFIX}${i.thumbUrl}`} alt="" /></Tab>
               ))
             }
           </TabList>
@@ -163,6 +198,8 @@ function App() {
                       <img
                         className={layerComb?.[idx]?.itmId === 0 ? "item-image-selected" : "item-image"}
                         onClick={() => { handleChangeItem(idx, 0, 0, "") }}
+                        width={itemImageDimension}
+                        height={itemImageDimension}
                         src="emptyset.svg"
                         alt=""
                       />
@@ -172,6 +209,8 @@ function App() {
                         <img
                           className={layerComb?.[idx]?.itmId === item.itmId ? "item-image-selected" : "item-image"}
                           src={`${consts.CDN_PREFIX}${item.thumbUrl}`}
+                          width={itemImageDimension}
+                          height={itemImageDimension}
                           onClick={() => {
                             const sameColorItem = item.originals.find(i => i.cId === layerComb?.[idx]?.cId)
                             handleChangeItem(idx, item.itmId, sameColorItem?.cId || item.originals[0].cId, sameColorItem?.url || item.originals[0].url)
@@ -187,7 +226,7 @@ function App() {
                         i.items.find(j => j.itmId === layerComb?.[idx]?.itmId)?.originals.map(orig => (
                           <div
                             className={layerComb?.[idx]?.cId === orig.cId ? "color-image-selected" : "color-image"}
-                            style={{ background: i.colors[orig.cId] }}
+                            style={{ background: i.colors[orig.cId], width: colorImageDimension, height: colorImageDimension }}
                             onClick={() => { handleChangeItem(idx, layerComb?.[idx]?.itmId as number, orig.cId, orig.url) }}
                           />
                         ))

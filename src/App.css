@@ -102,25 +102,15 @@
 }
 
 .layer-image {
-  min-width: min(600px, max(50vw, min(50vh, 80vw)));
-  width: min(600px, max(50vw, min(50vh, 80vw)));
-  min-height: min(600px, max(50vw, min(50vh, 80vw)));
-  height: min(600px, max(50vw, min(50vh, 80vw)));
   border-radius: 16px;
   border: solid #555;
 }
 
 .loading-text-container {
-  min-width: min(600px, max(50vw, min(50vh, 80vw)));
-  width: min(600px, max(50vw, min(50vh, 80vw)));
-  min-height: min(600px, max(50vw, min(50vh, 80vw)));
-  height: min(600px, max(50vw, min(50vh, 80vw)));
   border-radius: 16px;
   border: solid #555;
   display: flex;
   flex-direction: column;
-  min-width: 600px;
-  min-height: 600px;
   text-align: center;
   align-items: center;
   justify-content: center;
@@ -146,8 +136,6 @@
   margin: 4px 0 0 4px;
   display: inline-block;
   object-fit: contain;
-  width: 160px;
-  height: 160px;
   border: dashed rgb(62, 62, 143);
   cursor: pointer;
   transition: 200ms;
@@ -163,8 +151,6 @@
   margin: 4px 0 0 4px;
   display: inline-block;
   object-fit: contain;
-  width: 160px;
-  height: 160px;
   border: solid #f0e982;
   cursor: default;
 }
@@ -181,8 +167,6 @@
   margin: 8px 0 0 8px;
   display: inline-block;
   object-fit: contain;
-  width: 60px;
-  height: 60px;
   border: 4px solid grey;
   cursor: pointer;
   transition: 200ms;
@@ -198,8 +182,6 @@
   margin: 8px 0 0 8px;
   display: inline-block;
   object-fit: contain;
-  width: 60px;
-  height: 60px;
   border: 4px solid white;
   cursor: default;
 }
@@ -210,6 +192,5 @@
 }
 
 .tab-image {
-  width: 60px;
   border-radius: 8px;
 }
