@@ -154,10 +154,30 @@ function App() {
       children: psdLayers as any
     }
 
-    console.log('start write')
     const data = agPsd.writePsd(psdData);
     const blob = new Blob([data]);
-    saveAs(blob, 'output.psd')
+    saveAs(blob, `amachiromaker-output-${Date.now()}.psd`)
+  }
+
+  const handleDownloadPreset = () => {
+    const presetJson = JSON.stringify(layerComb)
+    const presetBlob = new Blob([presetJson], {
+      type: 'text/plain'
+    });
+    saveAs(presetBlob, `amachiromaker-preset-${Date.now()}.json`)
+  }
+
+  const handleLoadPreset = (e: any) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      const data = JSON.parse(reader.result as string)
+      localStorage.setItem("layerComb", reader.result as string)
+      setLayerComb(data)
+      // clear input file to allow user to select same file again
+      e.target.value = '';
+    }
+    reader.readAsText(file);
   }
 
   return (
@@ -165,18 +185,22 @@ function App() {
       <div className="left-area">
         {
           outputImage?.startsWith("data:image/png;base64,") ? (
-            <img className="layer-image" width={outputImageDimension} src={outputImage} title="Output Image" alt="Output Image" />
+            <>
+              <img className="layer-image" width={outputImageDimension} src={outputImage} title="Output Image" alt="Output Image" />
+              <div className="button-group">
+                <button className="button-1" onClick={handleReset}>Reset</button>
+                <button className="button-2" onClick={() => { saveAs(outputImage || "", `amachiromaker-output-${Date.now()}.png`) }}>Save PNG</button>
+                <button className="button-2" onClick={handleDownloadPsd}>Save PSD</button>
+              </div>
+              <div className="button-group">
+                <input id="presetInput" type="file" style={{ display: "none" }} onChange={handleLoadPreset} />
+                <button className="button-3" onClick={() => { document.getElementById("presetInput")?.click() }}>Load Preset</button>
+                <button className="button-2" onClick={handleDownloadPreset}>Download Preset</button>
+              </div>
+            </>
           ) : (
-            <div className="loading-text-container" style={{width: outputImageDimension, height: outputImageDimension}}>loading...</div>
+            <div className="loading-text-container" style={{ width: outputImageDimension, height: outputImageDimension }}>loading...</div>
           )
-        }
-        {
-          outputImage?.startsWith("data:image/png;base64,") &&
-          <div className="button-group">
-            <button className="button-1" onClick={handleReset}>Reset</button>
-            <button className="button-2" onClick={() => { saveAs(outputImage || "", 'output.png') }}>Save PNG</button>
-            <button className="button-2" onClick={handleDownloadPsd}>Save PSD</button>
-          </div>
         }
       </div>
 

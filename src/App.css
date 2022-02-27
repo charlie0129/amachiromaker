@@ -54,8 +54,7 @@
   margin-top: 16px;
 }
 
-.button-1:hover,
-.button-1:focus {
+.button-1:hover {
   background-color: #FCA4CE;
 }
 
@@ -85,9 +84,38 @@
   margin-top: 16px;
 }
 
-.button-2:hover,
-.button-2:focus {
+.button-2:hover {
   background-color: #FEC8A9;
+}
+
+.button-3 {
+  margin-left: 16px;
+  background-color: #DD9785;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  outline: none;
+  padding: 10px 16px;
+  /* position: relative; */
+  text-align: center;
+  text-decoration: none;
+  transition: 200ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-top: 16px;
+}
+
+.button-3:hover {
+  background-color: #DFC8AB;
 }
 
 .config-area {
