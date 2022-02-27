@@ -47,13 +47,13 @@ If you do not have Docker, try using a static file server to serve the `build/` 
 Quick examples:
 
 - `python3 -m http.server -d build 3000` (`python3` should be installed)
-- `serve build ` (`serve` should be installed by `yarn global add serve`)
+- `serve build` (`serve` should be installed by `yarn global add serve`)
 
 Preferably:
 
 - `nginx` (example configuration is in [`nginx.conf`](https://github.com/charlie0129/amachiromaker/blob/master/nginx.conf))
 
-## Feature
+## Features
 
 - Choose any combinations you want, with live preview.
 - Auto save. Your changes will be preserved between page reloads.
