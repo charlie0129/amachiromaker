@@ -1,12 +1,8 @@
 .App {
-  /* text-align: center; */
   background-color: #282c34;
   min-height: 100vh;
   min-width: 100vw;
   display: flex;
-  /* flex-direction: row; */
-  /* align-items: center; */
-  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -17,7 +13,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   text-align: center;
 }
 
@@ -184,11 +179,6 @@
   object-fit: contain;
   border: 4px solid white;
   cursor: default;
-}
-
-.none-button {
-  min-width: 160px;
-  min-height: auto;
 }
 
 .tab-image {

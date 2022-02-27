@@ -42,21 +42,22 @@ function App() {
   const getOutputImageDimension = () => {
     // width and height are identical, so we only need width
     const maxWidth = 600
-    const calculatedWidth = width * 0.3
+    const minWidth = 300
+    const calculatedWidth = width > height ? (width * 0.3) : (width * 0.5)
     const finalWidth = Math.min(maxWidth, calculatedWidth);
-    return finalWidth
+    return finalWidth < minWidth ? minWidth : finalWidth;
   }
   const getItemImageDimension = () => {
     // width and height are identical, so we only need width
     const maxWidth = 160
-    const calculatedWidth = width * 0.1
+    const calculatedWidth = width > height ? (width * 0.1) : (width * 0.167)
     const finalWidth = Math.min(maxWidth, calculatedWidth);
     return finalWidth
   }
   const getColorImageDimension = () => {
     // width and height are identical, so we only need width
     const maxWidth = 60
-    const calculatedWidth = width * 0.05
+    const calculatedWidth = width > height ? (width * 0.05) : (width * 0.083)
     const finalWidth = Math.min(maxWidth, calculatedWidth);
     return finalWidth
   }
