@@ -53,12 +53,12 @@ Preferably:
 
 - `nginx` (example configuration is in [`nginx.conf`](https://github.com/charlie0129/amachiromaker/blob/master/nginx.conf))
 
-## Screenshots
+## Feature
 
 - Choose any combinations you want, with live preview.
-- Auto save. Your work will be preserved between page reloads.
-- Download as `PNG`.
-- Download as `PSD` for advanced users (with all the separate layers you can fiddle with).
+- Auto save. Your changes will be preserved between page reloads.
+- Download output image as `PNG` or `PSD` (with all the separate layers you can fiddle with).
+- Download raw layer combination presets. You can load the preset and make changes to it later.
 
 <p align="center">
   <figure>
@@ -66,7 +66,7 @@ Preferably:
   	<figcaption>Fig.1 - Screenshot</figcaption>
 	</figure>
   <figure>
-  	<img src="README.assets/example-gif.gif" alt="Animated GIF">
+  	<img width="90%" src="README.assets/gif-in-action.gif" alt="Animated GIF">
   	<figcaption>Fig.2 - Animated GIF</figcaption>
 	</figure>
   <figure>
@@ -76,6 +76,7 @@ Preferably:
   <p align="center">Any of the artwork above will <b><i>not</i></b> be provided in this repository.</p>
   <p align="center">Copyright of the artwork belongs to the original author.</p>
 </p>
+
 
 ## Description of the Scripts
 
