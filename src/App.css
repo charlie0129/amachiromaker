@@ -156,7 +156,7 @@
 
 .item-image {
   border-radius: 12px;
-  margin: 4px 0 0 4px;
+  margin: 4px 2px 0 2px;
   display: inline-block;
   object-fit: contain;
   border: dashed rgb(62, 62, 143);
