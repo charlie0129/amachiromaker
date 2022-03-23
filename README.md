@@ -80,10 +80,13 @@ Preferably:
 
 ## Description of the Scripts
 
-- `data/` JSONs from the original website, containing layer info. Scripts below will use them.
+> Generally, you will **not** need to use these scripts. They will be executed automatically when generating static files.
+
+- `scripts/data/` JSONs from the original website, containing layer info. Scripts below will use them.
 - `scripts/findDefaultCombination.js` find out the layer combination to compose the default picture.
 - `scripts/findDepth.js` order the layers by depth.
 - `scripts/generateMakefile.js` generate Makefile to download all the layers from Wayback Machine.
 - `scripts/organizeData.js` reconstruct the original data to make it easier to use (mainly by combining image `src`s of different colors into layer objects).
 
-> If you find this project interesting, stars are appreciated.
+
+#### If you find this project interesting, stars⭐️ are appreciated.
