@@ -23,3 +23,5 @@ README.assets
 README.md
 scripts/runner_scripts_prod
 scripts/runner_scripts_prod-traefik
+
+docker-compose*

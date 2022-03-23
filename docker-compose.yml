@@ -5,6 +5,8 @@ services:
     image: charlie0129/amachiromaker
     container_name: amachiromaker
     restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "${PORT}:80"
     environment:
