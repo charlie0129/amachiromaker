@@ -1,6 +1,6 @@
 # amachiromaker
 
-I created this website since the [original one](https://picrew.me/image_maker/168503) (I really like it) was not accessible (as of November 2021; was taken down by its author 甘城なつき). Original website: [amachiromaker｜Picrew](https://picrew.me/image_maker/168503).
+I created this website since the [original one](https://picrew.me/image_maker/168503) was not accessible (as of November 2021; was taken down by its author 甘城なつき). Original website: [amachiromaker｜Picrew](https://picrew.me/image_maker/168503).
 
 This website is not a one-to-one clone of the original one, rather it is rewritten from scratch using basic React (very lightweight, no UI library used).
 
@@ -10,7 +10,7 @@ This website is not a one-to-one clone of the original one, rather it is rewritt
 
 ### Build or Develop Locally
 
-Before you begin, make sure `node` (>= 14), `yarn`, `GNU Make`, and `curl` are installed. Also, it is recommended to use a `bash`-compatible shell (try WSL/MinGW/Cygwin if you run into problems under Windows).
+Before you begin, make sure `node` (>= 14), `yarn`, `GNU Make`, and `curl` are installed. Also, it is recommended to use a `bash`-compatible shell (try WSL/MinGW/Cygwin if you run into problems in Windows).
 
 > If you do not want to install all the dependencies, use Docker to build the image (next section). You can extract build artifacts from `build/`.
 
