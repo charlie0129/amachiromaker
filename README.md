@@ -4,7 +4,7 @@ I created this website since the [original one](https://picrew.me/image_maker/16
 
 This website is not a one-to-one clone of the original one, rather it is rewritten from scratch using basic React (very lightweight, no UI library used).
 
-**Note:** The original artwork (layers in the image) is ***not*** (and ***will not be***) provided due to copyright reasons. You have to download them yourself (from [Wayback Machine](http://web.archive.org/) if the original website is down). I am not responsible if you violate the license.
+**Note:** The original artwork (layers in the image) is ***not*** (and ***will not be***) provided due to copyright reasons. You have to download them yourself (by running `yarn build-static`). I am not responsible if you violate the license.
 
 ## How to Build
 
