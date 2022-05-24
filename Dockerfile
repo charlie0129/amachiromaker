@@ -10,11 +10,11 @@ COPY scripts/ ./scripts/
 RUN yarn build-static -j2
 COPY . .
 RUN yarn build
+RUN chmod -R 755 ./build
 
 FROM nginx:stable-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /usr/src/app/build /usr/share/nginx/html
-RUN chmod -R 755 /usr/share/nginx/html
 EXPOSE 80
 
 STOPSIGNAL SIGQUIT
