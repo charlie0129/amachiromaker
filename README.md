@@ -6,7 +6,7 @@ This website is not a one-to-one clone of the original one, rather it is rewritt
 
 **Note:** The original artwork (layers in the image) is ***not*** (and ***will not be***) provided due to copyright reasons. You have to download them yourself (by running `yarn build-static`). I am not responsible if you violate the license.
 
-> As of May 2022, Wayback Machine also excluded all the artworks. Unfortunately, I cannot provide them  due to copyright reasons. You have to find somehow find the artworks yourself, otherwise it won't work. You can check what files are needed in Makefile after running `node scripts/generateMakefile.js`.
+> As of May 2022, Wayback Machine also excluded all the artworks. So, the download script provided in the repo will fail. Unfortunately, I cannot provide the artworks due to copyright reasons. You have to find somehow find the artworks yourself, otherwise it won't work. You can check what files are needed in `Makefile` after running `node scripts/generateMakefile.js`. There are over 1,000 items.
 
 ## How to Build
 
