@@ -6,6 +6,8 @@ This website is not a one-to-one clone of the original one, rather it is rewritt
 
 **Note:** The original artwork (layers in the image) is ***not*** (and ***will not be***) provided due to copyright reasons. You have to download them yourself (by running `yarn build-static`). I am not responsible if you violate the license.
 
+> As of May 2022, Wayback Machine also excluded all the artworks. Unfortunately, I cannot provide them  due to copyright reasons. You have to find somehow find the artworks yourself, otherwise it won't work. You can check what files are needed in Makefile after running `node scripts/generateMakefile.js`.
+
 ## How to Build
 
 ### Build or Develop Locally
@@ -18,7 +20,7 @@ Before you begin, make sure `node` (>= 14), `yarn`, `GNU Make`, and `curl` are i
 - Run `yarn build-static` to download original artworks from [Wayback Machine](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503)
   - By doing this, you agree that you will follow the license on the [original webpage (Wayback Machine copy)](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
   - Optionally, you may use `yarn build-static -jx` to enable parallel downloads, where `x` = number of threads.
-  - It will not work if you are using a shell that is not compatible with `bash` syntax.
+  - If you are throttled by Wayback Machine, just retry later.
 - Run `yarn start` to start development server. Your browser should open shortly.
 - Or, run `yarn build` to build the website. Static files will be located under `build/`.
 
@@ -62,17 +64,17 @@ Preferably:
 
 <p align="center">
   <figure>
-  	<img src="README.assets/screenshot.png" alt="Screenshot">
-  	<figcaption>Fig.1 - Screenshot</figcaption>
-	</figure>
+    <img src="readme-assets/screenshot.png" alt="Screenshot">
+    <figcaption>Fig.1 - Screenshot</figcaption>
+  </figure>
   <figure>
-  	<img width="90%" src="README.assets/gif-in-action.gif" alt="Animated GIF">
-  	<figcaption>Fig.2 - Animated GIF</figcaption>
-	</figure>
+    <img width="90%" src="readme-assets/gif-in-action.gif" alt="Animated GIF">
+    <figcaption>Fig.2 - Animated GIF</figcaption>
+  </figure>
   <figure>
-  	<img src="README.assets/psd-layers.png" alt="PSD Layers">
-  	<figcaption>Fig.3 - PSD Layers</figcaption>
-	</figure>
+    <img src="readme-assets/psd-layers.png" alt="PSD Layers">
+    <figcaption>Fig.3 - PSD Layers</figcaption>
+  </figure>
   <p align="center">Any of the artwork above will <b><i>not</i></b> be provided in this repository.</p>
   <p align="center">Copyright of the artwork belongs to the original author.</p>
 </p>
