@@ -30,7 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-static": "[[ -f Makefile ]] || node scripts/generateMakefile.js && make"
+    "build-static": "node scripts/generateMakefile.js && make"
   },
   "eslintConfig": {
     "extends": [
