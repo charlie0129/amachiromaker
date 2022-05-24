@@ -7,7 +7,7 @@ ENV NODE_ENV=production
 RUN yarn install --frozen-lockfile --production=false
 COPY public/ ./public/
 COPY scripts/ ./scripts/
-RUN yarn build-static -j8
+RUN yarn build-static -j2
 COPY . .
 RUN yarn build
 
