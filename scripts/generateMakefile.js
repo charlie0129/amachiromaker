@@ -40,7 +40,7 @@ imgList.forEach(imgPath => {
 
   const imageDownloadLink = `${cdnPrefix}/${imgPath}`
 
-  const downloadCmd = `curl --create-dirs -L ${imageDownloadLink} --output ${localImgPath}`
+  const downloadCmd = `curl --create-dirs --silent --show-error -L ${imageDownloadLink} --output ${localImgPath}`
 
   mkTarget += downloadCmd
 
