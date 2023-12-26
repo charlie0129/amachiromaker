@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path')
 
-const cdnPrefix = "http://web.archive.org/web/20210130063021/https://cdn.picrew.me/app/image_maker"
+const cdnPrefix = "cdn.picrew.me/app/image_maker/"
 
 const cfList = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "cfList.json"), {
   encoding: "utf8",
@@ -17,56 +17,30 @@ const imgList = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "imgList
   flag: "r"
 }))
 
-let mkContent = "all: "
+let mkContent = "IMG_LIST := "
 
 imgList.forEach(imgPath => {
-  mkContent += `public/cdn.picrew.me/app/image_maker/${imgPath} `
+  mkContent += `${cdnPrefix}${imgPath} `
 })
 
 cfList.forEach(imgPath => {
-  mkContent += `public/cdn.picrew.me/app/image_maker/${imgPath} `
+  mkContent += `${cdnPrefix}${imgPath} `
 })
 
-mkContent += "public/orderedLayers.json "
-mkContent += "public/defaultCombination.json "
+mkContent += `
 
-mkContent += "\n\n"
+.PHONY: all
+all: $(addprefix public/,$(IMG_LIST)) public/orderedLayers.json public/defaultCombination.json
 
-imgList.forEach(imgPath => {
-  let mkTarget = ""
-  const localImgPath = `public/cdn.picrew.me/app/image_maker/${imgPath}`
-  mkTarget += `${localImgPath}: `
-  mkTarget += "\n\t"
+public/${cdnPrefix}%:
+\t@echo "Downloading $*" && curl --create-dirs --silent --show-error -L ${cdnPrefix}$* --output public/${cdnPrefix}$*
 
-  const imageDownloadLink = `${cdnPrefix}/${imgPath}`
+public/orderedLayers.json:
+\tnode scripts/organizeData.js
 
-  const downloadCmd = `@curl --create-dirs --silent --show-error -L ${imageDownloadLink} --output ${localImgPath}`
-
-  mkTarget += downloadCmd
-
-  mkContent += mkTarget + "\n\n"
-})
-
-cfList.forEach(imgPath => {
-  let mkTarget = ""
-  const localImgPath = `public/cdn.picrew.me/app/image_maker/${imgPath}`
-  mkTarget += `${localImgPath}: `
-  mkTarget += "\n\t"
-
-  const imageDownloadLink = `${cdnPrefix}/${imgPath}`
-
-  const downloadCmd = `@curl --create-dirs --silent --show-error -L ${imageDownloadLink} --output ${localImgPath}`
-
-  mkTarget += downloadCmd
-
-  mkContent += mkTarget + "\n\n"
-})
-
-mkContent += "public/orderedLayers.json: \n"
-mkContent += "\tnode scripts/organizeData.js\n\n"
-
-mkContent += "public/defaultCombination.json: public/orderedLayers.json\n"
-mkContent += "\tnode scripts/findDefaultCombination.js\n\n"
+public/defaultCombination.json: public/orderedLayers.json
+\tnode scripts/findDefaultCombination.js
+`
 
 fs.writeFileSync(path.join(__dirname, "..", "Makefile"), mkContent, { encoding: 'utf8', flag: 'w' })
 

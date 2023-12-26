@@ -1,59 +1,34 @@
 # amachiromaker
 
-> **Update:** As of May 2022, Wayback Machine also excluded all the artworks. So, the download script provided in the repo will fail. Unfortunately, I cannot provide the artworks due to copyright reasons. You have to somehow find all the artworks yourself, otherwise it won't work (you will see blank images everywhere). You can check what files are needed and where they are located in `Makefile` after running `node scripts/generateMakefile.js`. There are over 1,000 items (it is not a easy task)...
-
 I created this website since the [original one](https://picrew.me/image_maker/168503) was not accessible (as of November 2021; was taken down by its author 甘城なつき). Original website: [amachiromaker｜Picrew](https://picrew.me/image_maker/168503).
 
 This website is not a one-to-one clone of the original one, rather it is rewritten from scratch using basic React (very lightweight, no UI library used).
 
-**Note:** The original artwork (layers in the image) is ***not*** (and ***will not be***) provided due to copyright reasons. You have to download them yourself (by running `yarn build-static`). I am not responsible if you violate the license.
+**Note:** The original artwork (layers in the image) is ***not*** (and ***will not be***) provided due to copyright reasons. You have to download them yourself, if the servers happen to be alive. I am not responsible if you violate the license.
 
 ## How to Build
 
 ### Build or Develop Locally
 
-Before you begin, make sure `node` (>= 14), `yarn`, `GNU Make`, and `curl` are installed. Also, it is recommended to use a `bash`-compatible shell (try WSL/MinGW/Cygwin if you run into problems in Windows).
+Before you begin, make sure `node` (>= 14), `yarn`, `GNU Make`, and `curl` are installed. Also, it is recommended to use a `bash`-compatible shell (Windows users will have problems, try WSL/MinGW/Cygwin).
 
-> If you do not want to install all the dependencies, use Docker to build the image (next section). You can extract build artifacts from `build/`.
+> If you do not want to install all the dependencies, use Docker to build the image (next section). It should be easier.
 
 - Run `yarn install` to install dependencies.
-- Run `yarn build-static` to download original artworks from [Wayback Machine](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503)
-  - By doing this, you agree that you will follow the license on the [original webpage (Wayback Machine copy)](http://web.archive.org/web/20210130063020/https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
-  - Optionally, you may use `yarn build-static -jx` to enable parallel downloads, where `x` = number of threads.
-  - If you are throttled by Wayback Machine, just retry later.
+- Run `yarn build-static` to download original artworks. This may take a while.
+  - By doing this, you agree that you will follow the license on the [original webpage](https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
+  - Optionally, you may use `yarn build-static -jx` to enable parallel downloads, where `x` = number of threads (preferably `4`, setting it too high will cause the server to throttle you).
 - Run `yarn start` to start development server. Your browser should open shortly.
-- Or, run `yarn build` to build the website. Static files will be located under `build/`.
+
+If you want to build the website, run `yarn build` to build the website. Static files will be located under `build/`. Use any static file server to serve the directory. For development purposes, you can use `python3 -m http.server` to serve the directory on port 8000. For production, you can use `nginx` (example configuration is in `nginx.conf`) or `caddy` to serve the directory.
 
 ### Build Docker Image
 
-Just run `docker build . -t charlie0129/amachiromaker` to build the image.
+Make sure `docker` is installed. You can follow the instructions [here](https://docs.docker.com/get-docker/).
 
-## How to Deploy
+Just run `docker build . -t charlie0129/amachiromaker` to build the production-ready image. It will take a while to download all the artworks for you if you haven't done it in the previous section.
 
-You have two options to deploy this application. Choose the one you like.
-
-### Containerized
-
-1. Make sure `docker` and `docker-compose` are installed and updated.
-2. Copy `.env` as `.env.local`. This is your configuration file.
-3. Depending on whether you want to have `traefik` as a reverse proxy, you have two options:
-    1. No `traefik`: `./runner.sh start prod -v -d ` (listens on `PORT` in `.env.local`, defaults to `8081`)
-    2. With `traefik`: `./runner.sh start prod-traefik -v -d` (you need to configure `traefik` yourself. remember to check the `traefik` configurations in `docker-compose.traefik.yml` and `WEBSITE_URL` in `.env.local`)
-
-> If you wonder what the heck is `./runner.sh`, you can find it [here (charlie0129/server-app-runner)](https://github.com/charlie0129/server-app-runner) .
-
-### Other
-
-If you do not have Docker, try using a static file server to serve the `build/` directory (after you successfully built the project).
-
-Quick examples:
-
-- `python3 -m http.server -d build 3000` (`python3` should be installed)
-- `serve build` (`serve` should be installed by `yarn global add serve`)
-
-Preferably:
-
-- `nginx` (example configuration is in [`nginx.conf`](https://github.com/charlie0129/amachiromaker/blob/master/nginx.conf))
+You can then run `docker run --rm -it -p 8000:80 charlie0129/amachiromaker` to start the server (Port 8000 can be changed to whatever you want). The website will be available at `http://localhost:8000/`.
 
 ## Features
 
@@ -87,8 +62,7 @@ Preferably:
 - `scripts/data/` JSONs from the original website, containing layer info. Scripts below will use them.
 - `scripts/findDefaultCombination.js` find out the layer combination to compose the default picture.
 - `scripts/findDepth.js` order the layers by depth.
-- `scripts/generateMakefile.js` generate Makefile to download all the layers from Wayback Machine.
+- `scripts/generateMakefile.js` generate Makefile to download all the layers from picrew CDN.
 - `scripts/organizeData.js` reconstruct the original data to make it easier to use (mainly by combining image `src`s of different colors into layer objects).
-
 
 #### If you find this project interesting, stars⭐️ are appreciated.

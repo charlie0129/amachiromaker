@@ -8,8 +8,6 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
     ports:
-      - "${PORT}:80"
+      - "8090:80"
     environment:
       - "NODE_ENV=production"
-    expose:
-      - "80"
