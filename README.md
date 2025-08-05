@@ -15,7 +15,7 @@ Before you begin, make sure `node` (>= 14), `yarn`, `GNU Make`, and `curl` are i
 > If you do not want to install all the dependencies, use Docker to build the image (next section). It should be easier.
 
 - Run `yarn install` to install dependencies.
-- Run `yarn build-static` to download original artworks. This may take a while.
+- Run `yarn build-static` to download original artworks. This may take a while. If it fails due to network issues, you can run it again. It will skip the files that have already been downloaded.
   - By doing this, you agree that you will follow the license on the [original webpage](https://picrew.me/image_maker/168503) and are responsible for any consequences if you violate the license.
   - Optionally, you may use `yarn build-static -jx` to enable parallel downloads, where `x` = number of threads (preferably `4`, setting it too high will cause the server to throttle you).
 - Run `yarn start` to start development server. Your browser should open shortly.
@@ -26,7 +26,7 @@ If you want to build the website, run `yarn build` to build the website. Static 
 
 Make sure `docker` is installed. You can follow the instructions [here](https://docs.docker.com/get-docker/).
 
-Just run `docker build . -t charlie0129/amachiromaker` to build the production-ready image. It will take a while to download all the artworks for you if you haven't done it in the previous section.
+Just run `docker build . -t charlie0129/amachiromaker` to build the production-ready image. It will take a while to download all the artworks for you if you haven't done it in the previous section. If the download constantly fails due to network issues, you can download the artworks manually (`yarn build-static -j2`) before running the Docker build command. The downloaded files will be copied into the image, thus reducing the build time.
 
 You can then run `docker run --rm -it -p 8000:80 charlie0129/amachiromaker` to start the server (Port 8000 can be changed to whatever you want). The website will be available at `http://localhost:8000/`.
 

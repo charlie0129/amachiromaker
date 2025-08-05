@@ -33,7 +33,7 @@ mkContent += `
 all: $(addprefix public/,$(IMG_LIST)) public/orderedLayers.json public/defaultCombination.json
 
 public/${cdnPrefix}%:
-\t@echo "Downloading $*" && curl --create-dirs --silent --show-error -L ${cdnPrefix}$* --output public/${cdnPrefix}$*
+\t@echo "Downloading $*" && curl --remove-on-error --create-dirs --silent --show-error -L ${cdnPrefix}$* --output public/${cdnPrefix}$*
 
 public/orderedLayers.json:
 \tnode scripts/organizeData.js
